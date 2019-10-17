@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body style="display: flex; justify-content: center;">
+    <style>
+        table, tr, td {
+            border: 1px black solid;
+            border-collapse: collapse;
+            font-size: 24px;
+        }
+
+    </style>
+    <table id="tabela">
+        <tr>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+    </table>
+
+    <script>
+        const tabela = document.getElementById("tabela");
+        for(let lin = 0; lin < tabela.getElementsByTagName("tr").length; lin++) {
+            for(let col = 0; col < tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td").length; col++) {
+                if(lin == col) {
+                    tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td")[col].innerHTML = '-1'
+                }
+
+                console.log(tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td")[col]);
+            }
+        }
+        
+
+    </script>
+</body>
+</html>
