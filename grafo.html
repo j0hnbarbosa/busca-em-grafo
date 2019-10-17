@@ -34,7 +34,7 @@
         <tr>
             <td>0</td>
             <td>0</td>
-            <td>0</td>
+            <td>1</td>
             <td>0</td>
             <td>0</td>
         </tr>
@@ -55,14 +55,17 @@
     </table>
 
     <script>
+        const visitado = new Array(5).fill(null).map(() => new Array(5).fill(0));
+        
+        console.log(visitado)
         const tabela = document.getElementById("tabela");
         for(let lin = 0; lin < tabela.getElementsByTagName("tr").length; lin++) {
             for(let col = 0; col < tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td").length; col++) {
-                if(lin == col) {
-                    tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td")[col].innerHTML = '-1'
+                if(tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td")[col].innerHTML === '1') {
+                    tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td")[col].innerHTML = 'aqui'
                 }
 
-                console.log(tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td")[col]);
+                // console.log(tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td")[col]);
             }
         }
         
