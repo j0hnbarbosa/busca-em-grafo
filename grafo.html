@@ -161,7 +161,7 @@
             if(inc < caminho.length) {
               console.log(caminho[inc])
               let fim = false;
-              if(inc-2 === caminho.length)
+              if(inc === caminho.length-1)
                 fim=true;  
               mostraCamiho(exemploGrafo, caminho[inc].x, caminho[inc].y, fim);
               
