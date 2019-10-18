@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Grafo</title>
 </head>
 
 <body style="display: flex; justify-content: center;">
@@ -49,26 +49,63 @@
             <td>0</td>
             <td>0</td>
             <td>0</td>
-            <td>0</td>
+            <td>1</td>
             <td>0</td>
         </tr>
     </table>
 
     <script>
-        const visitado = new Array(5).fill(null).map(() => new Array(5).fill(0));
-        
-        console.log(visitado)
-        const tabela = document.getElementById("tabela");
-        for(let lin = 0; lin < tabela.getElementsByTagName("tr").length; lin++) {
-            for(let col = 0; col < tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td").length; col++) {
-                if(tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td")[col].innerHTML === '1') {
-                    tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td")[col].innerHTML = 'aqui'
-                }
-
-                // console.log(tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td")[col]);
-            }
+        const inicializaVisitado = () => {
+            return new Array(5).fill(null).map(() => new Array(5).fill(0));
         }
         
+        const testePegaPisicaoTabela = (grafo) => {
+          const grafoAqui = grafo();
+            console.log(grafoAqui)
+            const tabela = document.getElementById("tabela");
+            for(let lin = 0; lin < tabela.getElementsByTagName("tr").length; lin++) {
+                for(let col = 0; col < tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td").length; col++) {
+                  
+                  tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td")[col].innerHTML = grafoAqui[lin][col]
+                  if(grafoAqui[lin][col] === 0) {
+                    tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td")[col].style.backgroundColor = "green";
+                  }
+                  if(grafoAqui[lin][col] === 1) {
+                    tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td")[col].style.backgroundColor = "red";
+                  }
+                  if(grafoAqui[lin][col] === 2) {
+                    tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td")[col].style.backgroundColor = "blue";
+                  }
+                  if(grafoAqui[lin][col] === 3) {
+                    tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td")[col].style.backgroundColor = "yellow";
+                  }
+                  
+                    console.log(tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td")[col]);
+                }
+            }
+        }
+
+        const exemploGrafo = () => {
+          return [
+            [2,	0,	1,	0,	3],
+            [1,	0,	0,	1,	0],
+            [0,	0,	1,	0,	0],
+            [1,	0,	1,	0,	1],
+            [0,	0,	0,	0,	0]
+          ];
+        }
+        
+        const BFS = () => {
+            const fila = [];
+            const visitado = inicializaVisitado();
+            const exemGrafo = exemploGrafo();
+            console.log(exemGrafo);
+            const xLin = [0, 1, 0 -1];
+            const xCol = [1, 0, -1, 0];
+        }
+        
+        testePegaPisicaoTabela(exemploGrafo);
+        BFS();
 
     </script>
 </body>
