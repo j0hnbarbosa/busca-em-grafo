@@ -110,33 +110,44 @@
 
             while(fila.length > 0) {
                 let {x, y} = fila.shift();
+                let paraAchou = false;
                 
               for(let i = 0; i < 4; i++) {
                 let x_Visita = x + xLin[i];
                 let y_Visita = y + yCol[i];
 
                 if (x_Visita >= 0 && y_Visita >= 0 && x_Visita < 5 && y_Visita < 5) {
-                  if(visitado[x_Visita][y_Visita] === 0 && grafoUsado[x_Visita][y_Visita] === 0 ) {
-                    fila.push({x: x_Visita, y: y_Visita});
+                  if(visitado[x_Visita][y_Visita] === 0 && (grafoUsado[x_Visita][y_Visita] === 0 || grafoUsado[x_Visita][y_Visita] === 3) ) {
                     caminho.push({x: x_Visita, y: y_Visita});
+                    fila.push({x: x_Visita, y: y_Visita});
                     visitado[x_Visita][y_Visita] = 1;
-                  } 
+
+                    if(grafoUsado[x_Visita][y_Visita] === 3) {
+                      paraAchou = true;
+                      break;
+                    }
+
+                  }
+
                 }
+                if(paraAchou) {
+                    break;
+                  }
               }
-              // if(grafoUsado[x_Visita][y_Visita] === 3) {
-              //   break;
-              // }
+              if(paraAchou) {
+                    break;
+                  }
             }
             // console.log(caminho);
             return caminho;
         }
 
 
-        const mostraCamiho = (grafo, lin, col) => {
+        const mostraCamiho = (grafo, lin, col, fim) => {
           const grafoAqui = grafo();
           console.log(grafoAqui)
           const tabela = document.getElementById("tabela");
-          tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td")[col].style.backgroundColor = "#CECECE";
+          tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td")[col].style.backgroundColor = !fim ? "#CECECE" : "blue";
         }
         
         testePegaPosicaoTabela(exemploGrafo);
@@ -149,7 +160,11 @@
             // console.log(caminho[inc])
             if(inc < caminho.length) {
               console.log(caminho[inc])
-              mostraCamiho(exemploGrafo, caminho[inc].x, caminho[inc].y);
+              let fim = false;
+              if(inc-2 === caminho.length)
+                fim=true;  
+              mostraCamiho(exemploGrafo, caminho[inc].x, caminho[inc].y, fim);
+              
               inc++;
             } else {
               clearInterval(id);
