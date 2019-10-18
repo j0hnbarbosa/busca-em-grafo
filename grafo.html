@@ -101,7 +101,7 @@
             const visitado = inicializaVisitado();
             const grafoUsado = exemploGrafo();
             console.log(grafoUsado);
-            const xLin = [0, 1, 0 -1];
+            const xLin = [0, 1, 0, -1];
             const yCol = [1, 0, -1, 0];
             fila.push({x, y});
             visitado[x][y] = 1;
@@ -110,12 +110,13 @@
 
             while(fila.length > 0) {
                 let {x, y} = fila.shift();
+                
               for(let i = 0; i < 4; i++) {
                 let x_Visita = x + xLin[i];
                 let y_Visita = y + yCol[i];
 
                 if (x_Visita >= 0 && y_Visita >= 0 && x_Visita < 5 && y_Visita < 5) {
-                  if(visitado[x_Visita][y_Visita] === 0 && grafoUsado[x_Visita][y_Visita] === 0 || grafoUsado[x_Visita][y_Visita] === 3) {
+                  if(visitado[x_Visita][y_Visita] === 0 && grafoUsado[x_Visita][y_Visita] === 0 ) {
                     fila.push({x: x_Visita, y: y_Visita});
                     caminho.push({x: x_Visita, y: y_Visita});
                     visitado[x_Visita][y_Visita] = 1;
@@ -145,14 +146,15 @@
 
           let inc = 0;        
           const id = setInterval(() => {
-            console.log(caminho[inc])
+            // console.log(caminho[inc])
             if(inc < caminho.length) {
+              console.log(caminho[inc])
               mostraCamiho(exemploGrafo, caminho[inc].x, caminho[inc].y);
               inc++;
             } else {
               clearInterval(id);
             }
-          }, 1000);
+          }, 250);
           
 
 
