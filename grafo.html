@@ -5,18 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Grafo</title>
+    <style>
+      table, tr, td {
+          border: 1px black solid;
+          border-collapse: collapse;
+          font-size: 24px;
+      }
+
+      #resetar {
+        height: 40px;
+        width: 150px;
+        border-radius: 10px;    
+        margin-right: 50px;    
+      }
+
+  </style>
 </head>
 
-<body style="display: flex; justify-content: center;">
-    <style>
-        table, tr, td {
-            border: 1px black solid;
-            border-collapse: collapse;
-            font-size: 24px;
-        }
-
-    </style>
-    <table id="tabela">
+<body >
+  <div style="display: flex; justify-content: center;">
+      <button onclick="atualizarPagina()" id="resetar">RESETAR</button>
+      <table id="tabela">
         <tr>
             <td>0</td>
             <td>0</td>
@@ -53,7 +62,7 @@
             <td>0</td>
         </tr>
     </table>
-
+  </div>
     <script>
         const inicializaVisitado = () => {
             return new Array(5).fill(null).map(() => new Array(5).fill(0));
@@ -172,7 +181,9 @@
           }, 250);
           
 
-
+          const atualizarPagina = () => {
+            window.location.reload();
+          }
 
     </script>
 </body>
