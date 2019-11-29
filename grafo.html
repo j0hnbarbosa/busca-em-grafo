@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Grafo</title>
+    <style>
+      table, tr, td {
+          border: 1px black solid;
+          border-collapse: collapse;
+          font-size: 24px;
+      }
+
+      #resetar {
+        height: 40px;
+        width: 150px;
+        border-radius: 10px;    
+        margin-right: 50px;    
+      }
+
+  </style>
+</head>
+
+<body >
+  <div style="display: flex; justify-content: center;">
+      <button onclick="atualizarPagina()" id="resetar">RESETAR</button>
+      <table id="tabela">
+        <tr>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>0</td>
+            <td>0</td>
+            <td>1</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>1</td>
+            <td>0</td>
+        </tr>
+    </table>
+  </div>
+    <script>
+        const inicializaVisitado = () => {
+            return new Array(5).fill(null).map(() => new Array(5).fill(0));
+        }
+        
+        const testePegaPosicaoTabela = (grafo) => {
+          const grafoAqui = grafo();
+            console.log(grafoAqui)
+            const tabela = document.getElementById("tabela");
+            for(let lin = 0; lin < tabela.getElementsByTagName("tr").length; lin++) {
+                for(let col = 0; col < tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td").length; col++) {
+                  
+                  tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td")[col].innerHTML = grafoAqui[lin][col]
+                  if(grafoAqui[lin][col] === 0) {
+                    tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td")[col].style.backgroundColor = "green";
+                  }
+                  if(grafoAqui[lin][col] === 1) {
+                    tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td")[col].style.backgroundColor = "red";
+                  }
+                  if(grafoAqui[lin][col] === 2) {
+                    tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td")[col].style.backgroundColor = "blue";
+                  }
+                  if(grafoAqui[lin][col] === 3) {
+                    tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td")[col].style.backgroundColor = "yellow";
+                  }
+                  
+                    console.log(tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td")[col]);
+                }
+            }
+        }
+
+        const exemploGrafo = () => {
+          return [
+            [2,	0,	1,	0,	3],
+            [1,	0,	0,	1,	0],
+            [0,	0,	1,	0,	0],
+            [1,	0,	1,	0,	1],
+            [0,	0,	0,	0,	0]
+          ];
+        }
+        
+        const BFS = (inicio, fim) => {
+            let {x, y} = inicio;
+            const fila = [];
+            const visitado = inicializaVisitado();
+            const grafoUsado = exemploGrafo();
+            console.log(grafoUsado);
+            const xLin = [0, 1, 0, -1];
+            const yCol = [1, 0, -1, 0];
+            fila.push({x, y});
+            visitado[x][y] = 1;
+            const caminho = [];
+            caminho.push({...inicio});
+
+            while(fila.length > 0) {
+                let {x, y} = fila.shift();
+                let paraAchou = false;
+                
+              for(let i = 0; i < 4; i++) {
+                let x_Visita = x + xLin[i];
+                let y_Visita = y + yCol[i];
+
+                if (x_Visita >= 0 && y_Visita >= 0 && x_Visita < 5 && y_Visita < 5) {
+                  if(visitado[x_Visita][y_Visita] === 0 && (grafoUsado[x_Visita][y_Visita] === 0 || grafoUsado[x_Visita][y_Visita] === 3) ) {
+                    caminho.push({x: x_Visita, y: y_Visita});
+                    fila.push({x: x_Visita, y: y_Visita});
+                    visitado[x_Visita][y_Visita] = 1;
+
+                    if(grafoUsado[x_Visita][y_Visita] === 3) {
+                      paraAchou = true;
+                      break;
+                    }
+
+                  }
+
+                }
+                if(paraAchou) {
+                    break;
+                  }
+              }
+              if(paraAchou) {
+                    break;
+                  }
+            }
+            // console.log(caminho);
+            return caminho;
+        }
+
+
+        const mostraCamiho = (grafo, lin, col, fim) => {
+          const grafoAqui = grafo();
+          console.log(grafoAqui)
+          const tabela = document.getElementById("tabela");
+          tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td")[col].style.backgroundColor = !fim ? "#CECECE" : "blue";
+        }
+        
+        testePegaPosicaoTabela(exemploGrafo);
+        const caminho =  BFS({x: 0, y: 0}, 3);
+        console.table(caminho);
+        console.log(caminho.length)
+
+          let inc = 0;        
+          const id = setInterval(() => {
+            // console.log(caminho[inc])
+            if(inc < caminho.length) {
+              console.log(caminho[inc])
+              let fim = false;
+              if(inc === caminho.length-1)
+                fim=true;  
+              mostraCamiho(exemploGrafo, caminho[inc].x, caminho[inc].y, fim);
+              
+              inc++;
+            } else {
+              clearInterval(id);
+            }
+          }, 250);
+          
+
+          const atualizarPagina = () => {
+            window.location.reload();
+          }
+
+    </script>
+</body>
+</html>

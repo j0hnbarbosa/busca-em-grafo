@@ -1,0 +1,10 @@
+criar labirinto automatico
+
+@ Gerar caminho de duas posições - ok
+1 - Esolher um ponto aleatorio na matriz
+2 - A partir do ponto inicial terá que movimentar duas posições para frente
+  2.b - Gerar o valor da proxima posição a partir da atual e verificar se esta livre
+    2.c - a partir da posicao gerada no passo (2.b) gerar o valor da proxima posicao
+    2.c.a - caso o valor gerado no passo (2.c) não encontre um local livre volte para o passo (2.b) e gere uma nova posicao
+    2.c.b - caso o passo (2.b) não consiga gerar uma posição em que passo (2.c) encontre um local livre finalize
+
