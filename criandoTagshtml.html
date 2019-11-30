@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+      table, tr, td {
+          border: 1px black solid;
+          border-collapse: collapse;
+          font-size: 24px;
+      }
+
+      #resetar {
+        height: 40px;
+        width: 150px;
+        border-radius: 10px;    
+        margin-right: 50px;    
+      }
+
+  </style>
+
+<script src="gerarLabirinto.js"></script>
+
+
+</head>
+<body>
+    <div id="inicio"></div>
+
+    <script>
+      let tam = 10;
+
+      const inicio = () => {
+        return document.getElementById("inicio");
+      }
+    
+      const geraTagHHml = () => {
+        let iniciar = inicio();
+        let tabela = document.createElement("table");
+        const borda =  "solid 1px black";
+        const corFundoInicial =  "red";
+    
+        tabela.style.border = borda;
+        for (let lin = 0; lin < tam; lin++){
+          let linha =  document.createElement("tr"); ;
+          // linha.style.border = borda;
+    
+          for(let col = 0; col < tam; col++) {
+            let coluna = document.createElement("td");
+            coluna.style.border = borda;
+            coluna.style.background = corFundoInicial;
+            let texto = document.createTextNode("TESTE");
+            coluna.appendChild(texto);
+            linha.appendChild( coluna );
+          }
+          tabela.appendChild(linha);
+        }    
+    
+        iniciar.appendChild(tabela);
+    
+      }
+    
+      geraTagHHml();
+      
+      gerarLabirinto(tam);
+
+    </script>
+</body>
+</html>
+
