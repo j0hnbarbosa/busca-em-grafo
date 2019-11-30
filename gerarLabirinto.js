@@ -3,7 +3,7 @@ const inicializaMatriz = (tamanho) => {
   return new Array(tamanho).fill(null).map(() => new Array(tamanho).fill(0));
 }
 
-//Gera posicao leatoria para buscar ao redor da posicao atual
+//Gera posicao aleatoria para buscar ao redor da posicao atual
 const gerarPosicao = (vlr) => {
   return Math.floor(Math.random() * vlr);
 }
@@ -131,21 +131,34 @@ while(pilha.length > 0) {
     posAleatorio = Array(4).fill(0);
   }
 }
-//Usado para colorir as celulas da tabela que repesenta o labirinto.
-coloreLabirinto(linhasTabela, caminhoCriado);
+
+const posicaoFinalParaBuscar = gerarPosicao(caminhoCriado.length) 
+const rowFim = caminhoCriado[posicaoFinalParaBuscar].row;
+const colFim = caminhoCriado[posicaoFinalParaBuscar].col;
+linhasTabela[rowFim].getElementsByTagName("td")[colFim].style.backgroundColor = "blue";
+labirinto[rowFim][colFim] = 3;
+
+
+//Usado para colorir as celulas da tabela que representa o labirinto.
+coloreLabirinto(linhasTabela, caminhoCriado, labirinto);
 console.log(labirinto);
+
 
 }
 
 //Usado para fazer a animacao da coloracao das celulas da tabela que representara os caminhos criados.
-const coloreLabirinto = (linhasTabela, caminhoCriado) => {
+const coloreLabirinto = (linhasTabela, caminhoCriado, labirinto) => {
   console.log(caminhoCriado);
   let inc = 0; 
-  id = setInterval(() => {
+  this.id = setInterval(() => {
     if(inc < caminhoCriado.length) {
-      linhasTabela[ caminhoCriado[inc].row ]
-      .getElementsByTagName("td")[ caminhoCriado[inc].col ]
-      .style.background =  inc % 2 === 0 ? "#CECECE" : "#AEAEAE";
+
+      //Verifica se a posicao atual e diferente do lugar final.
+      if(labirinto[caminhoCriado[inc].row][caminhoCriado[inc].col] != 3) {
+        linhasTabela[ caminhoCriado[inc].row ]
+        .getElementsByTagName("td")[ caminhoCriado[inc].col ]
+        .style.background =  inc % 2 === 0 ? "#CECECE" : "#AEAEAE";
+      }
 
       //Utilizado para movimentar a tela para o elemnento/tag atual
         linhasTabela[ caminhoCriado[inc].row ]
@@ -155,8 +168,11 @@ const coloreLabirinto = (linhasTabela, caminhoCriado) => {
       inc++;
     }else {
       //Finaliza a execucao do setInterval
-      clearInterval(id);
+      clearInterval(this.id);
       mensagem.innerHTML = "LABIRINTO GERADO COM SUCESSO!";
+      const inicio = {row: caminhoCriado[0].row, col: caminhoCriado[0].col};
+      const caminhoEncontrado = BFS(inicio, labirinto)
+      mostraCamiho(caminhoEncontrado);
     }
   }, 0);  
 }

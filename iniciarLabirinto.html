@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>Labirinto IA</title>
   <style>
       table, tr, td {
           border: 1px black solid;
@@ -17,20 +17,23 @@
         width: 150px;
         border-radius: 10px;    
         margin-right: 50px;    
+        cursor: pointer;
       }
 
   </style>
 
 <script src="gerarLabirinto.js"></script>
+<script src="fazBuscaNoLabirinto.js"></script>
 
 
 </head>
 <body>
   <div id="mensagem"></div>
+  <button onclick="atualizarPagina()" id="resetar">RESETAR</button>
     <div id="inicio"></div>
 
     <script>
-      let tam = 150;
+      let tam = 30;
 
       const inicio = () => {
         return document.getElementById("inicio");
