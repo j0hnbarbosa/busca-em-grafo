@@ -10,12 +10,20 @@ const gerarPosicao = (vlr) => {
 
 //Gera o labirinto
 const gerarLabirinto = (tam=10) => {
-  console.log(document.getElementById("inicio"));
+  
+  //Pega  uma referencia para as linhas da tabela que representara o labirinto.
+  const linhasTabela = document.getElementById("inicio").getElementsByTagName("tr");
+
+  const mensagem = document.getElementById("mensagem");
+
+  console.log(linhasTabela);
   let labirinto = inicializaMatriz(tam);
 
   const tamLabirinto = labirinto.length;
   const inicioRow = gerarPosicao(tamLabirinto);
   const inicioCol = gerarPosicao(tamLabirinto);
+
+  linhasTabela[inicioRow].getElementsByTagName("td")[inicioCol].style.background = "yellow";
 
   labirinto[inicioRow][inicioCol] = 2;
   
@@ -45,6 +53,11 @@ const gerarLabirinto = (tam=10) => {
   //utilizado para saber qual vai ser a segunda posicao encontrada
   let tempNovoCaminhoRow = inicioRow;
   let tempNovoCaminhoCol = inicioCol;
+
+  const caminhoCriado = [];
+
+  //Usado para para o setInterval
+  let id = null;
 
 //Verifica se a pilha ainda tem valores.
 while(pilha.length > 0) {
@@ -77,6 +90,12 @@ while(pilha.length > 0) {
       labirinto[ novoCaminhoRow + rowX[posVerifica] ][ novoCaminhoCol + colY[posVerifica] ] = 4;
       labirinto[ tempNovoCaminhoRow + rowX[posVerifica] ][ tempNovoCaminhoCol + colY[posVerifica] ] = 5;
       
+
+      //posicao do caminho do primeiro passo
+      caminhoCriado.push({row: novoCaminhoRow + rowX[posVerifica], col: novoCaminhoCol + colY[posVerifica]});
+      //posicao do caminho do segundo passo
+      caminhoCriado.push({row: tempNovoCaminhoRow + rowX[posVerifica], col:  tempNovoCaminhoCol + colY[posVerifica]});
+
       novoCaminhoRow = tempNovoCaminhoRow + rowX[posVerifica];
       novoCaminhoCol = tempNovoCaminhoCol + colY[posVerifica];
 
@@ -96,7 +115,6 @@ while(pilha.length > 0) {
 
 }  
 
-
   if( pilha.length > 0 && chamaPilhaFlag ) {
     chamaPilhaFlag=false;
 
@@ -113,6 +131,32 @@ while(pilha.length > 0) {
     posAleatorio = Array(4).fill(0);
   }
 }
-
+//Usado para colorir as celulas da tabela que repesenta o labirinto.
+coloreLabirinto(linhasTabela, caminhoCriado);
 console.log(labirinto);
+
+}
+
+//Usado para fazer a animacao da coloracao das celulas da tabela que representara os caminhos criados.
+const coloreLabirinto = (linhasTabela, caminhoCriado) => {
+  console.log(caminhoCriado);
+  let inc = 0; 
+  id = setInterval(() => {
+    if(inc < caminhoCriado.length) {
+      linhasTabela[ caminhoCriado[inc].row ]
+      .getElementsByTagName("td")[ caminhoCriado[inc].col ]
+      .style.background =  inc % 2 === 0 ? "#CECECE" : "#AEAEAE";
+
+      //Utilizado para movimentar a tela para o elemnento/tag atual
+        linhasTabela[ caminhoCriado[inc].row ]
+          .getElementsByTagName("td")[ caminhoCriado[inc].col ]
+          .scrollIntoView();
+
+      inc++;
+    }else {
+      //Finaliza a execucao do setInterval
+      clearInterval(id);
+      mensagem.innerHTML = "LABIRINTO GERADO COM SUCESSO!";
+    }
+  }, 0);  
 }

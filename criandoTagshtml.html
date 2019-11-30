@@ -26,10 +26,11 @@
 
 </head>
 <body>
+  <div id="mensagem"></div>
     <div id="inicio"></div>
 
     <script>
-      let tam = 10;
+      let tam = 150;
 
       const inicio = () => {
         return document.getElementById("inicio");
@@ -58,12 +59,14 @@
         }    
     
         iniciar.appendChild(tabela);
-    
+
+        gerarLabirinto(tam);
+
       }
     
       geraTagHHml();
       
-      gerarLabirinto(tam);
+      
 
     </script>
 </body>
