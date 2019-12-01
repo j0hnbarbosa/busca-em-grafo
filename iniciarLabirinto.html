@@ -37,7 +37,7 @@
     <div id="inicio"></div>
 
     <script>
-      let tam = 70;
+      let tam = 80;
 
       const inicio = () => {
         return document.getElementById("inicio");
@@ -47,7 +47,7 @@
         let iniciar = inicio();
         let tabela = document.createElement("table");
         const borda =  "solid 1px black";
-        const corFundoInicial =  "red";
+        const corFundoInicial =  "black";
     
         tabela.style.border = borda;
         for (let lin = 0; lin < tam; lin++){
@@ -58,7 +58,7 @@
             let coluna = document.createElement("td");
             // coluna.style.border = borda;
             coluna.style.background = corFundoInicial;
-            let texto = document.createTextNode("TESTE");
+            let texto = document.createTextNode(".....");
             coluna.appendChild(texto);
             linha.appendChild( coluna );
           }

@@ -114,7 +114,7 @@ const mostraCamiho = (caminhoEncontrado) => {
     } else {
       clearInterval(id);
     }
-  }, 50);
+  }, 30);
 
 }
 
