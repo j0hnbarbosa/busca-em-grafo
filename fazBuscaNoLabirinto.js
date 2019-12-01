@@ -3,42 +3,6 @@ const inicializaVisitado = (tam) => {
     return new Array(tam).fill(null).map(() => new Array(tam).fill(0));
 }
 
-const testePegaPosicaoTabela = (grafo) => {
-  const grafoAqui = grafo();
-    console.log(grafoAqui)
-    const tabela = document.getElementById("inicio").getElementsByTagName("tr");
-    for(let lin = 0; lin < tabela.getElementsByTagName("tr").length; lin++) {
-        for(let col = 0; col < tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td").length; col++) {
-          
-          tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td")[col].innerHTML = grafoAqui[lin][col]
-          if(grafoAqui[lin][col] === 0) {
-            tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td")[col].style.backgroundColor = "green";
-          }
-          if(grafoAqui[lin][col] === 1) {
-            tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td")[col].style.backgroundColor = "red";
-          }
-          if(grafoAqui[lin][col] === 2) {
-            tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td")[col].style.backgroundColor = "blue";
-          }
-          if(grafoAqui[lin][col] === 3) {
-            tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td")[col].style.backgroundColor = "yellow";
-          }
-          
-            console.log(tabela.getElementsByTagName("tr")[lin].getElementsByTagName("td")[col]);
-        }
-    }
-}
-
-const exemploGrafo = () => {
-  return [
-    [2,	0,	1,	0,	3],
-    [1,	0,	0,	1,	0],
-    [0,	0,	1,	0,	0],
-    [1,	0,	1,	0,	1],
-    [0,	0,	0,	0,	0]
-  ];
-}
-
 const BFS = (inicio, grafoLabirinto) => {
     let {row, col} = inicio;
     const tamanhoLabinrinto = grafoLabirinto.length;
